@@ -1,11 +1,14 @@
-from multiprocessing import context
 from django.shortcuts import render,redirect
 from .models import User, Company,Job
 from django.contrib import messages
 from django.http import JsonResponse
 
 def landing(request):
-    return render (request, 'landing.html')
+    all_jobs = Job.objects.all()
+    context = {
+        "jobs": all_jobs,
+    }
+    return render (request, 'landing.html', context)
 
 def about_us(request):
     return render (request, 'about_us.html')
@@ -26,9 +29,13 @@ def jobs(request):
     return render (request, 'job_list.html', context)
 
 def search (request):
-    searched_jobs = Job.objects.filter(title__contains = request.POST['search_bar'])
+    searched_jobs = Job.objects.filter(title__contains = request.GET['search_bar'])
+    all_companies = Company.objects.all()
+    all_jobs = Job.objects.all()
     context = {
-        "searched_jobs": searched_jobs
+        "searched_jobs": searched_jobs,
+        "jobs": all_jobs,
+        "companies": all_companies
     }
     return render (request,'job_search.html', context)
 
@@ -91,11 +98,11 @@ def job_apply(request, job_id):
         all_appliers = this_job.user_job.all()
         if this_user in all_appliers:
             messages.success(request,"Already Applied")
-            return redirect('/')
+            return redirect('/user_profile')
         else:
             this_job.user_job.add(this_user)
             messages.success(request,"Successfully Applied")
-            return redirect('/')
+            return redirect('/user_profile')
 
 def companies(request):
     context={

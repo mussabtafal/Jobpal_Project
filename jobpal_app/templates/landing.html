@@ -37,11 +37,11 @@
                     <a class="nav-link" href="/add_job" style="color: #2FBF7F; font-size: 20px;">Add Job</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="company_jobs" style="color: #2FBF7F; font-size: 20px;">Job Applecations</a>
+                    <a class="nav-link" href="/company_jobs" style="color: #2FBF7F; font-size: 20px;">Job Applecations</a>
                 </li>
                 {% else %} 
                   <li class="nav-item">
-                    <a class="nav-link" href="user_profile" style="color: #2FBF7F; font-size: 20px;">Your Profile</a>
+                    <a class="nav-link" href="/user_profile" style="color: #2FBF7F; font-size: 20px;">Your Profile</a>
                   </li>
                 {% endif %}
             </ul>
@@ -63,13 +63,6 @@
     </div>
 </nav>
     <div class="container-lg-fluid m-3 p-3 border">
-      {% if messages %}
-        {% for message in messages %}
-        <div class="alert alert-success" role="alert" {% if message.tags %} class="{{ message.tags }}" {% endif %}>
-          {{ message }}
-        </div>
-        {% endfor %}
-    {% endif %}
     <div class="container my-5">
           <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel" >
             <div class="carousel-indicators">
@@ -108,13 +101,16 @@
     </div>
     <div class="container">
       <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
+        {% for job in jobs %}
         <div class="col">
-          <div class="p-3 border bg-light" style="text-align: center;border-radius: 10px;"><a href="" style="text-decoration: none;">
-            Programming</a></div>
+          <div class="p-3 border bg-light" style="text-align: center;border-radius: 10px;"><a href="#" style="text-decoration: none;">
+            {{job.category}}</a>
+          </div>
         </div>
+        {% endfor %}
       </div>
     </div>
-    <img src="{% static 'D:\AXSOS-stacks\python project\code\jobpal_project\jobpal_app\static\img\Untitled-2 copy.jpg' %}" class="img-fluid" alt="...">
+    <img src="{% static 'img\Untitled-2 copy.jpg' %}" class="img-fluid" alt="jobpal statistecs">
   </div>
   <footer style="background-color:#ebebeb;padding: 15px;text-align: center;">
     <h4><a href="about_us" style="text-decoration: none;">About Jobpal</a></h4>

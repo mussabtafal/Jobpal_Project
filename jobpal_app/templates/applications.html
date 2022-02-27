@@ -12,7 +12,7 @@
 </head>
 
 <body>
-	<nav class="navbar navbar-expand-lg navbar-light bg-light p-2">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light p-2">
         <div class="container-fluid">
             <a class="navbar-brand me-5" href="/"><img
                     src="{% static 'img\Untitled-1 copy.png' %}"
@@ -38,8 +38,12 @@
                         <a class="nav-link" href="/add_job" style="color: #2FBF7F; font-size: 20px;">Add Job</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" style="color: #2FBF7F; font-size: 20px;">Job Applecations</a>
+                        <a class="nav-link" href="/company_jobs" style="color: #2FBF7F; font-size: 20px;">Job Applecations</a>
                     </li>
+                    {% else %} 
+                  <li class="nav-item">
+                    <a class="nav-link" href="/user_profile" style="color: #2FBF7F; font-size: 20px;">Your Profile</a>
+                  </li>
                     {% endif %}
                 </ul>
             </div>
@@ -60,15 +64,6 @@
         </div>
     </nav>
 	<div class="container-lg-fluid m-3 p-3 border">
-		<div class="row justify-content-between mb-4">
-			<div class="col-4"><h1  style="color:#2E77B5;">Job  <span style="color: #2FBF7F;">Applications</span></h1></div>
-			<div class="col-2">
-				<form class="d-flex mt-3">
-					<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-					<button class="btn btn-outline-success" type="submit">Search</button>
-				</form>
-			</div>
-		</div>
 		<div class="row  row-cols-2 row-cols-lg-5 g-2 g-lg-3 " >
 			{% for user in all_users %}
 			<div class="col-3 ">
