@@ -19,11 +19,12 @@ class JobManager(models.Manager):
 class Job(models.Model):
     title=models.CharField(max_length=90)
     desc=models.TextField()
-    location=models.CharField(max_length=90)
+    location=models.CharField(max_length=95)
     category=models.CharField(max_length=90)
     user_job = models.ManyToManyField(User, related_name="jobs")
     company_job=models.ForeignKey(Company, related_name="add_job", on_delete = models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects = JobManager()
-# Create your models here.
+
+

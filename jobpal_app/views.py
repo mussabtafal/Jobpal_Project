@@ -1,9 +1,8 @@
-from asyncio.windows_events import NULL
 from multiprocessing import context
-from unicodedata import category
 from django.shortcuts import render,redirect
 from .models import User, Company,Job
 from django.contrib import messages
+from django.http import JsonResponse
 
 def landing(request):
     return render (request, 'landing.html')
@@ -11,16 +10,13 @@ def landing(request):
 def about_us(request):
     return render (request, 'about_us.html')
 
-def companies(request):
-    return render (request, 'company_list.html')
-
-def company_profile(request):
-    return render (request, 'company_profile.html')
-
-def add_job(request):
-    return render (request, 'add_job.html')
-
 def jobs(request):
+    if "term" in request.GET:
+        search = Job.objects.filter(title__contains = request.GET.get('term'))
+        titles = []
+        for job in search:
+            titles.append(job.title)
+        return JsonResponse(titles, safe=False)
     all_jobs = Job.objects.all()
     all_companies = Company.objects.all()
     context = {
@@ -28,6 +24,13 @@ def jobs(request):
         "companies": all_companies
     }
     return render (request, 'job_list.html', context)
+
+def search (request):
+    searched_jobs = Job.objects.filter(title__contains = request.POST['search_bar'])
+    context = {
+        "searched_jobs": searched_jobs
+    }
+    return render (request,'job_search.html', context)
 
 def job_detail(request, job_id):
     this_job = Job.objects.get(id = job_id)
@@ -79,19 +82,6 @@ def render_category(request):
         } 
         return render(request, "job_list_filter.html", context)
 
-def new (request):
-    errors = Job.objects.basic_validator(request.POST)
-    if len(errors) > 0:
-        for key, value in errors.items():
-            messages.error(request, value)
-        return redirect('/add_job')
-    else:
-        this_company= Company.objects.get(id=request.session['company_id'] )
-        Job.objects.create(title=request.POST['title'],location=request.POST['location'],
-        desc=request.POST['desc'],category=request.POST['category'],company_job=this_company)
-        messages.success(request, "Job successfully added")
-        return redirect('/add_job')
-
 def job_apply(request, job_id):
     if not request.session['user_id']:
         return redirect('/')
@@ -106,4 +96,56 @@ def job_apply(request, job_id):
             this_job.user_job.add(this_user)
             messages.success(request,"Successfully Applied")
             return redirect('/')
+
+def companies(request):
+    context={
+        'all_companies':Company.objects.all()
+    }
+    return render (request, 'company_list.html',context)
+
+def company_jobs(request):
+    this_company=Company.objects.get(id = request.session['company_id'])
+    context={
+        'all_jobs':Job.objects.filter(company_job=this_company)
+    }
+    return render (request,'company_added_jobs.html',context)
+
+def applications(request, job_id):
+    company_job=Job.objects.get(id = job_id)
+    context={
+        'all_users':User.objects.filter(jobs = company_job)
+    }
+    return render (request,'applications.html',context)
+
+def company_profile(request,company_id):
+    this_company= Company.objects.get(id=company_id)
+    context={
+        'company':this_company,
+        'all_companies':Company.objects.all()
+    }
+    return render (request, 'company_profile.html',context)
+
+def add_job(request):
+    return render (request, 'add_job.html')
+
+def new (request):
+    errors = Job.objects.basic_validator(request.POST)
+    if len(errors) > 0:
+        for key, value in errors.items():
+            messages.error(request, value)
+        return redirect('/add_job')
+    else:
+        this_company= Company.objects.get(id=request.session['company_id'] )
+        Job.objects.create(title=request.POST['title'],location=request.POST['location'],
+        desc=request.POST['desc'],category=request.POST['category'],company_job=this_company)
+        messages.success(request, "Job successfully added")
+        return redirect('/add_job')
+
+def user_profile(request):
+    this_user = User.objects.get(id = request.session['user_id'])
+    user_jobs = Job.objects.filter(user_job = this_user)
+    context={
+        'user_jobs':user_jobs
+    }
+    return render (request, 'user_profile.html',context)
 

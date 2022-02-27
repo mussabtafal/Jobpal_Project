@@ -11,7 +11,7 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light p-2">
         <div class="container-fluid">
-            <a class="navbar-brand me-5" href="#"><img
+            <a class="navbar-brand me-5" href="/"><img
                     src="{% static 'img\Untitled-1 copy.png' %}"
                     alt="logo" style="width: 130px; height: 80px;"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -34,6 +34,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/add_job" style="color: #2FBF7F; font-size: 20px;">Add Job</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="company_jobs" style="color: #2FBF7F; font-size: 20px;">Job Applecations</a>
+                    </li>
                     {% endif %}
                 </ul>
             </div>
@@ -51,7 +54,6 @@
                     <li><a class="dropdown-item" href="company_register">Regirter as Company</a></li>
                 {% endif %}
             </div>
-         
         </div>
     </nav>
     <div style="margin: auto; margin-top:40px;" class="container border border-success p-5 ">

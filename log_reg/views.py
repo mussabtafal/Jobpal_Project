@@ -1,4 +1,3 @@
-import email
 from django.shortcuts import render,redirect
 from .models import User, Company
 import bcrypt
@@ -31,7 +30,6 @@ def user_login(request):
         return redirect('/user_register')
     else:
         user = User.objects.filter(email=request.POST['email'])
-        
         if user: 
             logged_user = user[0] 
             if bcrypt.checkpw(request.POST['password'].encode(), logged_user.password.encode()):
@@ -82,6 +80,7 @@ def company_login(request):
 
 def logout(request):
     request.session.clear()
-    return redirect('/')    
+    return redirect('/')
 
 
+# Create your views here.
