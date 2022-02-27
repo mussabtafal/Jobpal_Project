@@ -3,7 +3,8 @@ from . import views
 urlpatterns = [
     path('', views.landing),
     path('about_us', views.about_us),
-    path('jobs', views.jobs),
+    path('jobs', views.jobs, name = 'joblist'),
+    path('jobs/search', views.search),
     path('jobs/filter_category', views.f_category),
     path('jobs/filteredJobs', views.render_category),
     path('jobs/<int:job_id>', views.job_detail),

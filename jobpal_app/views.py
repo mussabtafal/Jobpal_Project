@@ -2,6 +2,7 @@ from multiprocessing import context
 from django.shortcuts import render,redirect
 from .models import User, Company,Job
 from django.contrib import messages
+from django.http import JsonResponse
 
 def landing(request):
     return render (request, 'landing.html')
@@ -10,6 +11,12 @@ def about_us(request):
     return render (request, 'about_us.html')
 
 def jobs(request):
+    if "term" in request.GET:
+        search = Job.objects.filter(title__contains = request.GET.get('term'))
+        titles = []
+        for job in search:
+            titles.append(job.title)
+        return JsonResponse(titles, safe=False)
     all_jobs = Job.objects.all()
     all_companies = Company.objects.all()
     context = {
@@ -17,6 +24,13 @@ def jobs(request):
         "companies": all_companies
     }
     return render (request, 'job_list.html', context)
+
+def search (request):
+    searched_jobs = Job.objects.filter(title__contains = request.POST['search_bar'])
+    context = {
+        "searched_jobs": searched_jobs
+    }
+    return render (request,'job_search.html', context)
 
 def job_detail(request, job_id):
     this_job = Job.objects.get(id = job_id)
