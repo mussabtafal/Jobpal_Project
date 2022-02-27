@@ -37,7 +37,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/company_jobs" style="color: #2FBF7F; font-size: 20px;">Job Applecations</a>
                     </li>
-                        {% else %} 
+                        {% elif request.session.user_id %} 
                     <li class="nav-item">
                         <a class="nav-link" href="/user_profile" style="color: #2FBF7F; font-size: 20px;">Your Profile</a>
                     </li>
@@ -111,9 +111,10 @@
             </div>
         </div>
     </div>    
-    <footer style="background-color:#ebebeb;padding: 15px;text-align: center;">
+    <footer style="background-color:#ebebeb;padding: 15px;text-align: center; margin-top: 10px;">
         <h4><a href="about_us" style="text-decoration: none;">About Jobpal</a></h4>
         <p style="color: gray;">“We all need people who will give us feedback. That’s how we improve.”– Bill Gates</p>
+        <p style="color: gray;">Copyright ©️ 2022 Private Ownership - Axsos Academy - Ramllah, Palestine</p>
       </footer >
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" 
         integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>

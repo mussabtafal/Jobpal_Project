@@ -90,7 +90,7 @@ def render_category(request):
         return render(request, "job_list_filter.html", context)
 
 def job_apply(request, job_id):
-    if not request.session['user_id']:
+    if not 'user_id' in request.session:
         return redirect('/')
     else:
         this_job = Job.objects.get(id = job_id)
@@ -113,7 +113,8 @@ def companies(request):
 def company_jobs(request):
     this_company=Company.objects.get(id = request.session['company_id'])
     context={
-        'all_jobs':Job.objects.filter(company_job=this_company)
+        'all_jobs':Job.objects.filter(company_job=this_company),
+        'this_company':this_company
     }
     return render (request,'company_added_jobs.html',context)
 
@@ -152,7 +153,12 @@ def user_profile(request):
     this_user = User.objects.get(id = request.session['user_id'])
     user_jobs = Job.objects.filter(user_job = this_user)
     context={
-        'user_jobs':user_jobs
+        'user_jobs':user_jobs,
+        'this_user': this_user
     }
     return render (request, 'user_profile.html',context)
 
+def delete_job(request, job_id):
+    this_job = Job.objects.get(id = job_id)
+    this_job.delete()
+    return redirect('/company_jobs')
