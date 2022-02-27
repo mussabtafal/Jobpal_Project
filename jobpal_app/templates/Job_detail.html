@@ -13,36 +13,52 @@
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light p-2">
-		<div class="container-fluid">
-			<a class="navbar-brand me-5" href="#"><img src="{% static 'D:\AXSOS-stacks\python project\code\jobpal_project\jobpal_app\static\img\Untitled-1 copy.png' %}" alt="logo" style="width: 130px; height: 80px;"></a>
-			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-				aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-				<ul class="navbar-nav">
-					<li class="nav-item">
-						<a class="nav-link active" aria-current="page" href="/" style="color: #2FBF7F; font-size: 20px;">Home</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="#" style="color: #2FBF7F; font-size: 20px;">Jobs</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="#" style="color: #2FBF7F; font-size: 20px;">Companies</a>
-					</li>
-				</ul>
-			</div>
-			<div class="dropdown">
-				<a class="btn btn-primary dropdown-toggle btn-sm ms-5 " href="#" role="button" id="dropdownMenuLink" 
-				data-bs-toggle="dropdown" aria-expanded="false">
-					Register Now!</a>
-				<ul class="dropdown-menu  " aria-labelledby="dropdownMenuLink">
+        <div class="container-fluid">
+            <a class="navbar-brand me-5" href="/"><img
+                    src="{% static 'img\Untitled-1 copy.png' %}"
+                    alt="logo" style="width: 130px; height: 80px;"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/"
+                            style="color: #2FBF7F; font-size: 20px;">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/jobs" style="color: #2FBF7F; font-size: 20px;">Jobs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/companies" style="color: #2FBF7F; font-size: 20px;">Companies</a>
+                    </li>
+                    {% if request.session.company_id %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/add_job" style="color: #2FBF7F; font-size: 20px;">Add Job</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="company_jobs" style="color: #2FBF7F; font-size: 20px;">Job Applecations</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+                <div class="dropdown">
+                {% if request.session.user_id or request.session.company_id %}
+                    <a class="btn btn-primary  btn-sm ms-5 " href="/logout" role="button" id="dropdownMenuLink"
+                     aria-expanded="false">
+                   Logout</a>
+                {% else %}   
+                    <a class="btn btn-primary dropdown-toggle btn-sm ms-5 " href="#" role="button" id="dropdownMenuLink"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    Register Now!</a>
+                <ul class="dropdown-menu  " aria-labelledby="dropdownMenuLink">
                     <li><a class="dropdown-item" href="user_register">Regirter as Job seeker</a></li>
                     <li><a class="dropdown-item" href="company_register">Regirter as Company</a></li>
-				</ul>
-			</div>
-		</div>
-	</nav>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
     <div class="container-lg-fluid m-3 p-3 border">
         <div class="row justify-content-center">
             <div class="col-4">
@@ -57,16 +73,25 @@
                 <div class="card m-5 col-11">
                     <div class="row p-5 g-0">
                         <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-title" style="font-size: 30px;">Job title</h5>
-                                <p class="card-text">Company name</p>
-                                <p class="card-text">Location</p>
-                                <p class="card-text">Job Description</p>
-                                <p class="card-text">Job Qualifications</p>
-                                <p class="card-text">Contact info</p>
-                                <p class="card-text">other Details</p>
-                                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                            </div>
+                            <form action="{{job.id}}/apply" method="post">
+                                {% csrf_token %}
+                                <div class="card-body">
+                                    <h5 class="card-title mb-5" style="font-size: 30px;">{{job.title}}</h5>
+                                    <p class="card-text">Company: {{job.company_job.company_name}}</p>
+                                    <p class="card-text">Category: {{job.category}}</p>
+                                    <p class="card-text">Location: {{job.location}}</p>
+                                    <p class="card-text">Job Description: {{job.desc}} </p>
+                                    <p class="card-text">Contact Info: {{job.company_job.email}}</p>
+                                    <p class="card-text"><small class="text-muted"><strong>Last updated:</strong> {{job.updated_at}}</small></p>
+                                    <div class="mb-3">
+                                        <label for="formFile" class="form-label mt-3">Upload CV:</label>
+                                        <input class="form-control" type="file" id="formFile">
+                                    </div>
+                                    <div class="row justify-content-around">
+                                        <div class="col-3"><button type="submit" class="btn btn-primary mt-3 text-center">Apply</button></div> 
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -74,12 +99,9 @@
             <div class="col-3 p-5">
                 <h4 class="mt-5 pe-4" ><a href="" style="text-decoration: none; color: black;">Featured Job Listings</a></h4> 
                 <ul style="font-size: 20px; list-style: none;">
-                    <li><a href="">Job-1</a></li>
-                    <li><a href="">Job-2</a></li>
-                    <li><a href="">Job-3</a></li>
-                    <li><a href="">Job-4</a></li>
-                    <li><a href="">Job-5</a></li>
-                    <li><a href="">Job-6</a></li>
+                    {% for job in jobs%}
+                        <li><a href="{{job.id}}">{{job.title}}</a></li>
+                    {% endfor %}
                 </ul>
             </div>
         </div>

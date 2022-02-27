@@ -78,5 +78,9 @@ def company_login(request):
                 print('wrong password')
                 return redirect('/company_register')
 
+def logout(request):
+    request.session.clear()
+    return redirect('/')
+
 
 # Create your views here.
