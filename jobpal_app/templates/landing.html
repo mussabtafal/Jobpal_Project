@@ -23,7 +23,7 @@
                 {% if request.session.company_id %}
                 <li><a href="/add_job" >Add Job</a></li>
                 <li ><a href="/company_jobs" >Job Applecations</a></li>
-                {% else %} 
+                {% elif request.session.user_id %}
                   <li><a  href="/user_profile" >Your Profile</a></li>
                 {% endif %}
               </ul> 
