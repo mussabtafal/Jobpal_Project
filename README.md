@@ -13,8 +13,11 @@ The name of the Website came from 2 words __Job__  from the main purpose of the 
 ## Programing Languages, Frameworks and Libraries used:
 HTML, CSS, Python, JavaScript, Jquery, Django.
 
-## Deployment Server
+## Deployment Server:
 Amazon Web Srvices
+
+## Data Base:
+SQLITE3
 
 ## Some Screenshots of the Website: 
 ![screen_one](https://github.com/mussabtafal/Jobpal_Project/blob/master/readme_img/1.png)
