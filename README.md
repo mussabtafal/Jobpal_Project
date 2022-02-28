@@ -8,7 +8,7 @@ A web application with the main purpose of exchanging information between Job se
 ## The Story Behind the name ?
 The name of the Website came from 2 words __Job__  from the main purpose of the website and __Palestine__  to refer to the location the website serves, we added both words and smashed the B with P, The result was this very beautiful Logo.
 
-![Jobpal logo](https://github.com/mussabtafal/Jobpal_Project/readme_img/logo.png?raw=true)
+![Jobpal logo](https://github.com/mussabtafal/Jobpal_Project/blob/master/readme_img/logo.png)
 
 ## Some Screenshot of the Website: 
 
