@@ -10,6 +10,7 @@ def landing(request):
     }
     return render (request, 'landing.html', context)
 
+
 def about_us(request):
     return render (request, 'about_us.html')
 
