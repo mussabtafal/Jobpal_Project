@@ -16,7 +16,7 @@ The name of the Website came from 2 words __Job__  from the main purpose of the 
 ![screen_Three](https://github.com/mussabtafal/Jobpal_Project/blob/master/readme_img/3.png)
 ![screen_Four](https://github.com/mussabtafal/Jobpal_Project/blob/master/readme_img/4.png)
 ![screen_Five](https://github.com/mussabtafal/Jobpal_Project/blob/master/readme_img/5.png)
-![screen_Six](https://github.com/mussabtafal/Jobpal_Project/blob/master/readme_img/6.png)
+![screen_Six](https://github.com/mussabtafal/Jobpal_Project/blob/master/readme_img/6.jpg)
 
 
 ## Functionality ?
